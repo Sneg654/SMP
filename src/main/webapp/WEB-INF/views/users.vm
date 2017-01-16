@@ -1,0 +1,17 @@
+<h2>Users</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Login</th>
+    </tr>
+    #foreach($usr in $users)
+        <tr>
+            <td>$usr.userId</td>
+            <td>$usr.name</td>
+            <td>$usr.login</td>
+        </tr>
+    #end
+</table>
+
+<a href="/smp">Welcome page</a>
