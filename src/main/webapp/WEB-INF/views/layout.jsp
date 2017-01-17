@@ -8,6 +8,5 @@
     $screen_content
 
 <hr/>
-Copyright &copy 2016 Oleg Anastassov
 </body>
 </html>

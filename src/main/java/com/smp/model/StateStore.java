@@ -6,7 +6,7 @@ package com.smp.model;
 public class StateStore {
     private String nomeclatureID;
     private Long orgId;
-    private String Name;
+    private String name;
     private Integer min;
     private Integer max;
     private Integer fold;
@@ -14,6 +14,9 @@ public class StateStore {
     private Long providerId;
     private Boolean isSend;
     private Boolean isCheck;
+
+    public StateStore() {
+    }
 
     public String getNomeclatureID() {
         return nomeclatureID;
@@ -32,11 +35,11 @@ public class StateStore {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        name = name;
     }
 
     public Integer getMin() {
