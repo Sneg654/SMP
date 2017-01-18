@@ -14,7 +14,7 @@ public class StateStore {
     private Long providerId;
     private Boolean isSend;
     private Boolean isCheck;
-
+    private Double count;
     public StateStore() {
     }
 
@@ -39,7 +39,7 @@ public class StateStore {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public Integer getMin() {
@@ -96,5 +96,30 @@ public class StateStore {
 
     public void setCheck(Boolean check) {
         isCheck = check;
+    }
+
+    public Double getCount() {
+        return count;
+    }
+
+    public void setCount(Double count) {
+        this.count = count;
+    }
+
+    @Override
+    public String toString() {
+        return "StateStore{" +
+                "nomeclatureID='" + nomeclatureID + '\'' +
+                ", orgId=" + orgId +
+                ", name='" + name + '\'' +
+                ", min=" + min +
+                ", max=" + max +
+                ", fold=" + fold +
+                ", cost=" + cost +
+                ", providerId=" + providerId +
+                ", isSend=" + isSend +
+                ", isCheck=" + isCheck +
+                ", count=" + count +
+                '}';
     }
 }

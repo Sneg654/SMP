@@ -28,6 +28,7 @@ public class StateStoreMapper implements RowMapper<StateStore> {
         stateStore.setProviderId(rs.getLong("provider_id"));
         stateStore.setCheck(rs.getBoolean("is_check"));
         stateStore.setSend(rs.getBoolean("is_send"));
+        stateStore.setCount(rs.getDouble("count"));
         return stateStore;
     }
 }
