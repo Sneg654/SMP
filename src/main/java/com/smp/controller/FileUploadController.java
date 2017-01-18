@@ -65,7 +65,7 @@ public class FileUploadController {
                     for (StateStore stateStore : stateStores) {
 
                         List<StateStore> stores = stateStoreService.findByImport(stateStore);
-                        if (stores != null && stores.size()!=0) {
+                        if (stores != null && stores.size() != 0) {
                             StateStore store = stores.get(0);
                             if (store.getCheck() && store.getMin() > stateStore.getCount()) {
                                 store.setCount(stateStore.getCount());
@@ -81,9 +81,12 @@ public class FileUploadController {
                     }
                 }
                 //
-
-                mailService.sendEmail("");
-
+                List<StateStore> stateStoreList = stateStoreService.findForSending(orgId);
+                mailService.messageBodyFrom(stateStoreList);
+                mailService.sendEmail();
+                for (StateStore state : stateStoreList) {
+                    stateStoreService.sendUpdate(state);
+                }
                 //
 
                 return "You successfully uploaded file=" + name;
@@ -95,6 +98,7 @@ public class FileUploadController {
                     + " because the file was empty.";
         }
     }
+
 
     @RequestMapping("/upl")
     public ModelAndView list(ModelMap model) {

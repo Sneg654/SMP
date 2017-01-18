@@ -10,11 +10,15 @@ import java.util.List;
 public interface StateStoreService {
     List<StateStore> getAll();
 
-     List<StateStore> findByImport(StateStore stateStore);
+    List<StateStore> findByImport(StateStore stateStore);
 
     List<StateStore> findByOrgId(Long orgId);
 
     int insertStore(StateStore stateStore);
 
     int autoUpdate(StateStore stateStore);
+
+    int sendUpdate(StateStore stateStore);
+
+    List<StateStore> findForSending(Long orgId);
 }

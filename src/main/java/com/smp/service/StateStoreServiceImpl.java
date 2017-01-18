@@ -33,7 +33,16 @@ public class StateStoreServiceImpl implements StateStoreService {
         return namedParameterJdbcTemplate.query(sql, params, stateStoreMapper);
     }
 
-    ;
+    public List<StateStore> findForSending(Long orgId) {
+
+
+        String sql = "select * from   STATE_STORE " +
+                "where org_id=:orgId and is_send=0 and is_check=1";
+        Map<String, Object> params = new HashMap();
+        params.put("orgId", orgId);
+        namedParameterJdbcTemplate.query(sql, params, stateStoreMapper);
+        return namedParameterJdbcTemplate.query(sql, params, stateStoreMapper);
+    }
 
     @Override()
     public List<StateStore> findByImport(StateStore stateStore) {
@@ -46,6 +55,9 @@ public class StateStoreServiceImpl implements StateStoreService {
 
         return namedParameterJdbcTemplate.query(sql, params, stateStoreMapper);
     }
+
+
+
 
     @Override
     public List<StateStore> getAll() {
@@ -80,8 +92,8 @@ public class StateStoreServiceImpl implements StateStoreService {
         Map<String, Object> params = new HashMap<>();
         params.put("nomeclatureId", stateStore.getNomeclatureID());
         params.put("orgId", stateStore.getOrgId());
-        params.put("cost", stateStore.getCost());
         params.put("count", stateStore.getCount());
+        params.put("cost", stateStore.getCost());
         try {
             namedParameterJdbcTemplate.update(sql, params);
             return 0;
@@ -90,6 +102,18 @@ public class StateStoreServiceImpl implements StateStoreService {
         }
 
     }
+    public int sendUpdate(StateStore stateStore){
+        String sql = "UPDATE STATE_STORE SET IS_SEND=1 where NOMECLATURE_ID=:nomeclatureId and ORG_ID=:orgId";
+        Map<String, Object> params = new HashMap<>();
+        params.put("nomeclatureId", stateStore.getNomeclatureID());
+        params.put("orgId", stateStore.getOrgId());
+        try {
+            namedParameterJdbcTemplate.update(sql, params);
+            return 0;
+        } catch (Exception ex) {
+            return -1;
+        }
 
+    }
 
 }
