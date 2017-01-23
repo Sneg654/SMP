@@ -57,29 +57,9 @@
         <%--#end--%>
     </c:forEach>
 
-        <form:form method="post" action="/smp/state/det"  acceptCharset="UTF-8" >
 
-    <tr>
-        <td>
-            <input type="hidden" name="id"  value="${store.nomeclatureID}"  >
-            <input type="hidden" name="orgId"  value="${store.orgId}" >
-            <input type="submit" name="change" value="change"/>
 
-        </td>
 
-        <td>${store.nomeclatureID}</td>
-        <td>${store.orgId}</td>
-        <td>${store.name}</td>
-        <td>${store.min}</td>
-        <td>${store.max}</td>
-        <td>${store.fold}</td>
-        <td>${store.cost}</td>
-        <td>${store.providerId}</td>
-        <td>${store.send}</td>
-        <td>${store.check}</td>
-        <c:set var="store" value="${store}" scope="request"/>
-    </tr>
-    </form:form>
 
 </table>
 
