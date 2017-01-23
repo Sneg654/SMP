@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
+
 <html>
 <head>
     <title>Title</title>
@@ -20,10 +22,11 @@
     <table >
         <tr>
             <td>Name : </td>
-            <td><form:input path="name"  /></td>
+            <td><form:input path="name"  />
+                <form:hidden path="userId"  /></td>
         </tr>
         <tr>
-            <td>Salary :</td>
+            <td>Login :</td>
             <td><form:input path="login" /></td>
         </tr>
         <tr>

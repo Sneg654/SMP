@@ -32,6 +32,8 @@ public class StateStoreServiceImpl implements StateStoreService {
         namedParameterJdbcTemplate.query(sql, params, stateStoreMapper);
         return namedParameterJdbcTemplate.query(sql, params, stateStoreMapper);
     }
+    @Override
+
 
     public List<StateStore> findForSending(Long orgId) {
 
@@ -45,7 +47,7 @@ public class StateStoreServiceImpl implements StateStoreService {
     }
 
     @Override()
-    public List<StateStore> findByImport(StateStore stateStore) {
+    public List<StateStore> findById (StateStore stateStore) {
         String sql = "select * from   STATE_STORE" +
                 " where org_id=:orgId and nomeclature_id=:nomeclatureId";
         Map<String, Object> params = new HashMap();
@@ -102,6 +104,39 @@ public class StateStoreServiceImpl implements StateStoreService {
         }
 
     }
+
+    public int fullUpdate(StateStore stateStore){
+        String sql = "UPDATE STATE_STORE " +
+                " SET COST=:cost, " +
+                "COUNT=:count, " +
+                "MIN=:min, " +
+                "MAX=:max, " +
+                "FOLD=:fold, " +
+                "IS_CHECK=:ckeck, " +
+                "cost=:cost, " +
+                "provider_id=:providerId " +
+               " where NOMECLATURE_ID=:nomeclatureId and ORG_ID=:orgId";
+        Map<String, Object> params = new HashMap<>();
+        params.put("nomeclatureId", stateStore.getNomeclatureID());
+        params.put("orgId", stateStore.getOrgId());
+        params.put("count", stateStore.getCount());
+        params.put("cost", stateStore.getCost());
+        params.put("min", stateStore.getMin());
+        params.put("max", stateStore.getMax());
+        params.put("fold", stateStore.getFold());
+        params.put("ckeck", stateStore.getCheck());
+        params.put("providerId", stateStore.getProviderId());
+
+        try {
+            namedParameterJdbcTemplate.update(sql, params);
+            return 0;
+        } catch (Exception ex) {
+            return -1;
+        }
+
+    }
+
+
     public int sendUpdate(StateStore stateStore){
         String sql = "UPDATE STATE_STORE SET IS_SEND=1 where NOMECLATURE_ID=:nomeclatureId and ORG_ID=:orgId";
         Map<String, Object> params = new HashMap<>();

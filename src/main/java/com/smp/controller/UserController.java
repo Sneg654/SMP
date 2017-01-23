@@ -43,4 +43,17 @@ public class UserController {
     public ModelAndView showform() {
         return new ModelAndView("edit/user", "command", new User());
     }
+
+    @RequestMapping("/delete")
+    public ModelAndView delete(@ModelAttribute("userId") Long userId) {
+        userService.delete(userId);
+        return new ModelAndView("redirect:/users/list");
+    }
+
+    @RequestMapping("/usercorrect")
+    public ModelAndView editForm(@ModelAttribute("userId") Long userId) {
+        User user = userService.findById(userId);
+        return new ModelAndView("edit/user", "command", user);
+    }
+
 }

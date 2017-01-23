@@ -64,7 +64,7 @@ public class FileUploadController {
                     fileFormat(file.getOriginalFilename(), stateStores);
                     for (StateStore stateStore : stateStores) {
 
-                        List<StateStore> stores = stateStoreService.findByImport(stateStore);
+                        List<StateStore> stores = stateStoreService.findById(stateStore);
                         if (stores != null && stores.size() != 0) {
                             StateStore store = stores.get(0);
                             if (store.getCheck() && store.getMin() > stateStore.getCount()) {

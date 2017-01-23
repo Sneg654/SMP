@@ -15,7 +15,13 @@ public class StateStore {
     private Boolean isSend;
     private Boolean isCheck;
     private Double count;
+    private Provider provider;
     public StateStore() {
+    }
+
+    public StateStore(Long orgId, String nomeclatureID) {
+        this.orgId = orgId;
+        this.nomeclatureID = nomeclatureID;
     }
 
     public String getNomeclatureID() {
@@ -104,6 +110,14 @@ public class StateStore {
 
     public void setCount(Double count) {
         this.count = count;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
     @Override

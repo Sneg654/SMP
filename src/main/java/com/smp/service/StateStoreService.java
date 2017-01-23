@@ -10,7 +10,7 @@ import java.util.List;
 public interface StateStoreService {
     List<StateStore> getAll();
 
-    List<StateStore> findByImport(StateStore stateStore);
+    List<StateStore> findById(StateStore stateStore);
 
     List<StateStore> findByOrgId(Long orgId);
 
@@ -20,5 +20,9 @@ public interface StateStoreService {
 
     int sendUpdate(StateStore stateStore);
 
+    int fullUpdate(StateStore stateStore);
+
     List<StateStore> findForSending(Long orgId);
+
+//    List<StateStore> findByOrgId(Long orgId, String nomeclatureId);
 }

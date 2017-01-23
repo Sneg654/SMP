@@ -33,11 +33,29 @@ public class UserServiceImpl implements UserService {
                 userMapper
         );
     }
+    public int delete(Long userId){
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        return namedParameterJdbcTemplate.update(
+                "delete  FROM user where user_id=:userId", params);
+    };
+    @Override
+    public User findById(Long userId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        return namedParameterJdbcTemplate.query(
+                "SELECT * FROM user where user_id=:userId", params,
+                userMapper).get(0);
+    }
+
 
     @Override
     public int save(User user) {
-        String sql = "insert into user(user_id,name,login,password,email,phone,role) " +
-                "values(:userId, :name,:login,:password,:email,:phone,:role)";
+        String sqlInsert = "insert into user(name,login,password,email,phone,role) " +
+                "values(:name,:login,:password,:email,:phone,:role)";
+
+        String sqlUpdate = "update user set  name=:name ,login=:login,password=:password,email:=email,phone=:phone,role=:role where user_id=:userId";
+
 
         Map<String, Object> params = new HashMap<>();
         params.put("userId", user.getUserId());
@@ -47,8 +65,11 @@ public class UserServiceImpl implements UserService {
         params.put("email", user.getEmail());
         params.put("phone", user.getPhone());
         params.put("role", user.getRole());
-        namedParameterJdbcTemplate.update(sql, params);
-
+        if (user.getUserId() != null) {
+            namedParameterJdbcTemplate.update(sqlUpdate, params);
+        } else {
+            namedParameterJdbcTemplate.update(sqlInsert, params);
+        }
         return 0;
     }
 

@@ -10,7 +10,8 @@ import java.util.List;
 public interface UserService {
 
     List<User> getAll();
-
+    User findById(Long userId);
+    int delete(Long userId);
     int save(User user);
 
 }

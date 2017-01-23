@@ -9,4 +9,7 @@ import java.util.List;
  */
 public interface ProviderService {
     List<Provider> getAll();
+    Provider findById(Long Id);
+    int delete(Long id);
+    int save(Provider provider);
 }
