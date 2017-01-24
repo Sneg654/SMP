@@ -10,4 +10,9 @@ import java.util.List;
 public interface UserToOrgService {
     List<UserToOrg> getAll();
 
+    List<UserToOrg> findByOrgId(Long orgId);
+
+    int deleteByOrgId(Long orgId);
+    int insert(Long orgId, Long userId);
+
 }

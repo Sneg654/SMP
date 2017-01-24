@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface OrgService {
     List<Organization> getAll();
+    int addOrg(String name);
+    int deleteOrg(Long orgId);
 }

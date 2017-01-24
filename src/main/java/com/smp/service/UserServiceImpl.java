@@ -1,7 +1,9 @@
 package com.smp.service;
 
+import com.smp.mapper.UserLiteMapper;
 import com.smp.mapper.UserMapper;
 import com.smp.model.User;
+import com.smp.model.UserLite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserLiteMapper userLiteMapper;
 
 //    @Autowired
 //    private JdbcTemplate template;
@@ -33,6 +37,15 @@ public class UserServiceImpl implements UserService {
                 userMapper
         );
     }
+    @Override
+    public  List<UserLite> getLiteAll(){
+        return namedParameterJdbcTemplate.query(
+                "SELECT * FROM user", Collections.emptyMap(),
+                userLiteMapper
+        );
+
+    };
+
     public int delete(Long userId){
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);

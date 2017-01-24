@@ -1,6 +1,7 @@
 package com.smp.service;
 
 import com.smp.model.User;
+import com.smp.model.UserLite;
 
 import java.util.List;
 
@@ -13,5 +14,7 @@ public interface UserService {
     User findById(Long userId);
     int delete(Long userId);
     int save(User user);
+
+    List<UserLite> getLiteAll();
 
 }

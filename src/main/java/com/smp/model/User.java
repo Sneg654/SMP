@@ -1,5 +1,7 @@
 package com.smp.model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 /**
  * Created by Sergey_Stefoglo on 1/15/2017.
  */
@@ -10,7 +12,6 @@ public class User {
     private String login;
     private String password;
     private String email;
-
     private String phone;
     private Integer role;
 
@@ -72,4 +73,6 @@ public class User {
     public void setRole(Integer role) {
         this.role = role;
     }
+
+
 }
