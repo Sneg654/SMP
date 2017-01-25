@@ -9,10 +9,11 @@ import java.util.List;
  */
 public interface StateStoreService {
     List<StateStore> getAll();
+    List<StateStore> findByOrgId(Long orgId );
 
     List<StateStore> findById(StateStore stateStore);
 
-    List<StateStore> findByOrgId(Long orgId);
+
 
     int insertStore(StateStore stateStore);
 

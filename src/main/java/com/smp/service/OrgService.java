@@ -11,4 +11,5 @@ public interface OrgService {
     List<Organization> getAll();
     int addOrg(String name);
     int deleteOrg(Long orgId);
+    Organization findById(Long orgId);
 }

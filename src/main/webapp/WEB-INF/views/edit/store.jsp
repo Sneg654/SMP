@@ -58,7 +58,7 @@
             </td>
         </tr>
         <tr>
-            <td> Выбрать нвого поставщика</td>
+            <td> Выбрать нового поставщика</td>
             <td><select id="newProviderId" name="newProviderId">
                 <option value="-1">не менять </option>
                 <option value="0">удалить поставщика</option>

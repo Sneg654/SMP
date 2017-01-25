@@ -1,7 +1,6 @@
 package com.smp.service;
 
 import com.smp.mapper.OrganazationMappper;
-import com.smp.mapper.UserMapper;
 import com.smp.model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,20 +23,31 @@ public class OrgServiceImpl implements OrgService {
     @Autowired
     private OrganazationMappper orgMapper;
 
-    public  int addOrg(String name){
+    public int addOrg(String name) {
         Map<String, Object> params = new HashMap();
 
         params.put("name", name);
-     return namedParameterJdbcTemplate.update("insert into organization(org_name) values(:name)",params);
-    };
-    @Override
-    public List<Organization> getAll() {
-        return namedParameterJdbcTemplate.query("select * from organization", Collections.emptyMap(),orgMapper );
+        return namedParameterJdbcTemplate.update("insert into organization(org_name) values(:name)", params);
     }
 
-    public int deleteOrg(Long orgId){
+    ;
+
+    @Override
+    public List<Organization> getAll() {
+        return namedParameterJdbcTemplate.query("select * from organization", Collections.emptyMap(), orgMapper);
+    }
+
+    public Organization findById(Long orgId) {
+        Map<String, Object> params = new HashMap();
+        params.put("orgId", orgId);
+        return namedParameterJdbcTemplate.query("select * from organization where ORG_ID=:orgId", params, orgMapper).get(0);
+    }
+
+    public int deleteOrg(Long orgId) {
         Map<String, Object> params = new HashMap();
         params.put("id", orgId);
-        return namedParameterJdbcTemplate.update("delete from organization where org_id=:id",params);
-    };
+        return namedParameterJdbcTemplate.update("delete from organization where org_id=:id", params);
+    }
+
+    ;
 }

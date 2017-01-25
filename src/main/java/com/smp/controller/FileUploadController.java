@@ -1,9 +1,13 @@
 package com.smp.controller;
 
 import com.smp.impexsel.ImportFromExsell;
+import com.smp.model.Organization;
 import com.smp.model.StateStore;
+import com.smp.model.UserToOrg;
 import com.smp.service.MailService;
+import com.smp.service.OrgService;
 import com.smp.service.StateStoreService;
+import com.smp.service.UserToOrgService;
 import org.apache.xmlbeans.impl.piccolo.io.FileFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,12 @@ public class FileUploadController {
     ImportFromExsell importFromExsell;
 
     @Autowired
+    private UserToOrgService userToOrgService;
+
+    @Autowired
+    private OrgService orgService;
+
+    @Autowired
     private StateStoreService stateStoreService;
     @Autowired
     private MailService mailService;
@@ -47,13 +57,14 @@ public class FileUploadController {
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     public
     @ResponseBody
-    String uploadFileHandler(@RequestParam("name") String name,
-                             @RequestParam("file") MultipartFile file) {
+    ModelAndView uploadFileHandler(@RequestParam("file") MultipartFile file,
+                                   @RequestParam("choseOrgId") Long orgId,
+                                   ModelMap model) {
 
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
-                Long orgId = 1L;
+//                Long orgId = 1L;
 
                 try (FileInputStream fileInputStream = new FileInputStream(convert(file))) {
 
@@ -88,22 +99,29 @@ public class FileUploadController {
                     stateStoreService.sendUpdate(state);
                 }
                 //
-
-                return "You successfully uploaded file=" + name;
+                model.addAttribute("message", "Файл успешно загрузжен");
+                return list(model);
             } catch (Exception e) {
-                return "You failed to upload " + name + " => " + e.getMessage();
+                model.addAttribute("message", "Ошибка чтения ");
+                return list(model);
             }
         } else {
-            return "You failed to upload " + name
-                    + " because the file was empty.";
+            model.addAttribute("message", "Ошибка чтения ");
+            return list(model);
         }
     }
 
 
     @RequestMapping("/upl")
     public ModelAndView list(ModelMap model) {
-//        List<Organization> organizations = orgService.getAll();
-        model.put("orgs", null);
+
+        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(1L);
+        List<Organization> organizations = new ArrayList<>();
+        for (UserToOrg userToOrg : userToOrgs) {
+            organizations.add(orgService.findById(userToOrg.getOrgId()));
+        }
+
+        model.put("orgs", organizations);
         return new ModelAndView("upload", model);
     }
 

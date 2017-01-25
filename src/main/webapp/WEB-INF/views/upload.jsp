@@ -16,13 +16,49 @@
 </head>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<form method="POST" action="uploadFile" enctype="multipart/form-data">
-    File to upload: <input type="file" name="file">
+<form method="POST" action="/smp/uploadFile" enctype="multipart/form-data">
+<table>
+    <tr colspan="2">
+        <font size="8">Система Управления Продуктами (СУП)</font>
+    </tr>
+    <tr>
+        <td><font size="5">Склад</font></td>
+        <td align="right">
+             Выберети учереждение:
+                <select id="choseOrgId" name="choseOrgId">
 
-    Name: <input type="text" name="name">
+                    <c:forEach items="${orgs}" var="org">
+
+                        <option value="${org.orgId}">${org.orgName}</option>
+
+                    </c:forEach>
+                </select>
 
 
-    <input type="submit" value="Upload"> Press here to upload the file!
+        </td>
+    </tr>
+    <tr>
+
+        <td width="200" valign="top">
+            <a href="/smp/upl/">Загрузка файла</a>
+        </td>
+        <td>
+
+    Файл <input type="file" name="file">
+
+
+    <input type="submit" value="Загрузить">
+
+    </td>
+    </tr>
+    <tr>
+       <td/>
+        <br/>
+        <br/>
+        <br/>
+        <td align="center"> <font size="6" color="red">${message}</font></td>
+    </tr>
+    </table>
 </form>
 </body>
 </html>

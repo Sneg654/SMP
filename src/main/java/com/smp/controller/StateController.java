@@ -1,9 +1,13 @@
 package com.smp.controller;
 
+import com.smp.model.Organization;
 import com.smp.model.Provider;
 import com.smp.model.StateStore;
+import com.smp.model.UserToOrg;
+import com.smp.service.OrgService;
 import com.smp.service.ProviderService;
 import com.smp.service.StateStoreService;
+import com.smp.service.UserToOrgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,13 +35,47 @@ public class StateController {
     @Autowired
     private ProviderService providerService;
 
+    @Autowired
+    private UserToOrgService userToOrgService;
+
+    @Autowired
+    private OrgService orgService;
+
     @RequestMapping("/list")
     public ModelAndView list(ModelMap model) {
-        List<StateStore> stateStores = stateStoreService.getAll();
+        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(1L);
+        List<StateStore> stateStores = new ArrayList<StateStore>();
+        if (userToOrgs.size() > 0) {
+            stateStores = stateStoreService.findByOrgId(userToOrgs.get(0).getOrgId());
+        }
+        List<Organization> organizations = new ArrayList<>();
+        for (UserToOrg userToOrg : userToOrgs) {
+            organizations.add(orgService.findById(userToOrg.getOrgId()));
+        }
         Map<String, Object> params = new HashMap<>();
+        params.put("orgs", organizations);
         params.put("stateStores", stateStores);
         return new ModelAndView("store", params);
     }
+
+
+    @RequestMapping("/listByOrg")
+    public ModelAndView list(ModelMap model, @RequestParam("choseOrgId") Long choseOrgId) {
+        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(1L);
+        List<StateStore> stateStores = new ArrayList<StateStore>();
+        if (userToOrgs.size() > 0) {
+            stateStores = stateStoreService.findByOrgId(choseOrgId);
+        }
+        List<Organization> organizations = new ArrayList<>();
+        for (UserToOrg userToOrg : userToOrgs) {
+            organizations.add(orgService.findById(userToOrg.getOrgId()));
+        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("orgs", organizations);
+        params.put("stateStores", stateStores);
+        return new ModelAndView("store", params);
+    }
+
 
     @RequestMapping(value = "/det", method = RequestMethod.POST)
     public ModelAndView detail(@ModelAttribute("id") String id,
@@ -67,11 +106,11 @@ public class StateController {
             stateStore.setProviderId(newProviderId);
         }
         //
-            stateStore.setOrgId(1L);
-            //
-            stateStoreService.fullUpdate(stateStore);
+        stateStore.setOrgId(1L);
+        //
+        stateStoreService.fullUpdate(stateStore);
 
-            return new ModelAndView("redirect:/state/list");//will redirect to viewemp request mapping
-        }
-
+        return new ModelAndView("redirect:/state/list");//will redirect to viewemp request mapping
     }
+
+}

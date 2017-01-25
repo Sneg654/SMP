@@ -41,6 +41,16 @@ public class UserToOrgServiceImpl implements UserToOrgService {
         );
     }
 
+    public List<UserToOrg> findByUserId(Long userId) {
+
+        Map<String, Object> params = new HashMap();
+        params.put("userId", userId);
+        return namedParameterJdbcTemplate.query(
+                "SELECT * FROM user2org where user_id=:userId", params,
+                mapper
+        );
+    }
+
     public int deleteByOrgId(Long orgId){
         Map<String, Object> params = new HashMap();
         params.put("orgId", orgId);

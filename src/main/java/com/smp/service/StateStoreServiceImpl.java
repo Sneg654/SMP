@@ -21,17 +21,20 @@ public class StateStoreServiceImpl implements StateStoreService {
     @Autowired
     private StateStoreMapper stateStoreMapper;
 
+
+
     @Override
     public List<StateStore> findByOrgId(Long orgId) {
 
 
-        String sql = "select * from   STATE_STORE" +
+        String sql = "select * from   STATE_STORE " +
                 "where org_id=:orgId";
         Map<String, Object> params = new HashMap();
         params.put("orgId", orgId);
         namedParameterJdbcTemplate.query(sql, params, stateStoreMapper);
         return namedParameterJdbcTemplate.query(sql, params, stateStoreMapper);
     }
+
     @Override
 
 
@@ -47,7 +50,7 @@ public class StateStoreServiceImpl implements StateStoreService {
     }
 
     @Override()
-    public List<StateStore> findById (StateStore stateStore) {
+    public List<StateStore> findById(StateStore stateStore) {
         String sql = "select * from   STATE_STORE" +
                 " where org_id=:orgId and nomeclature_id=:nomeclatureId";
         Map<String, Object> params = new HashMap();
@@ -59,8 +62,6 @@ public class StateStoreServiceImpl implements StateStoreService {
     }
 
 
-
-
     @Override
     public List<StateStore> getAll() {
         return namedParameterJdbcTemplate.query("SELECT * FROM STATE_STORE", Collections.emptyMap(), stateStoreMapper);
@@ -69,7 +70,7 @@ public class StateStoreServiceImpl implements StateStoreService {
     @Override
     public int insertStore(StateStore stateStore) {
         String sql = "INSERT INTO state_store (NOMECLATURE_ID, ORG_ID, NAME, MIN, MAX, FOLD, COST, COUNT, provider_id, IS_CHECK, IS_SEND) VALUES " +
-                                            " (:nomeclatureId, :orgId,:name,:min,:max,1,:cost,:count,null,0,0)";
+                " (:nomeclatureId, :orgId,:name,:min,:max,1,:cost,:count,null,0,0)";
 
         Map<String, Object> params = new HashMap<>();
         params.put("nomeclatureId", stateStore.getNomeclatureID());
@@ -89,7 +90,7 @@ public class StateStoreServiceImpl implements StateStoreService {
 
     }
 
-    public int autoUpdate(StateStore stateStore){
+    public int autoUpdate(StateStore stateStore) {
         String sql = "UPDATE STATE_STORE SET COST=:cost, COUNT=:count, IS_SEND=0 where NOMECLATURE_ID=:nomeclatureId and ORG_ID=:orgId";
         Map<String, Object> params = new HashMap<>();
         params.put("nomeclatureId", stateStore.getNomeclatureID());
@@ -105,7 +106,7 @@ public class StateStoreServiceImpl implements StateStoreService {
 
     }
 
-    public int fullUpdate(StateStore stateStore){
+    public int fullUpdate(StateStore stateStore) {
         String sql = "UPDATE STATE_STORE " +
                 " SET COST=:cost, " +
                 "COUNT=:count, " +
@@ -115,7 +116,7 @@ public class StateStoreServiceImpl implements StateStoreService {
                 "IS_CHECK=:ckeck, " +
                 "cost=:cost, " +
                 "provider_id=:providerId " +
-               " where NOMECLATURE_ID=:nomeclatureId and ORG_ID=:orgId";
+                " where NOMECLATURE_ID=:nomeclatureId and ORG_ID=:orgId";
         Map<String, Object> params = new HashMap<>();
         params.put("nomeclatureId", stateStore.getNomeclatureID());
         params.put("orgId", stateStore.getOrgId());
@@ -137,7 +138,7 @@ public class StateStoreServiceImpl implements StateStoreService {
     }
 
 
-    public int sendUpdate(StateStore stateStore){
+    public int sendUpdate(StateStore stateStore) {
         String sql = "UPDATE STATE_STORE SET IS_SEND=1 where NOMECLATURE_ID=:nomeclatureId and ORG_ID=:orgId";
         Map<String, Object> params = new HashMap<>();
         params.put("nomeclatureId", stateStore.getNomeclatureID());

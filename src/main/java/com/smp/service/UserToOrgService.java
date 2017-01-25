@@ -11,6 +11,7 @@ public interface UserToOrgService {
     List<UserToOrg> getAll();
 
     List<UserToOrg> findByOrgId(Long orgId);
+    List<UserToOrg> findByUserId(Long orgId);
 
     int deleteByOrgId(Long orgId);
     int insert(Long orgId, Long userId);
