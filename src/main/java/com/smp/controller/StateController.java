@@ -3,7 +3,6 @@ package com.smp.controller;
 import com.smp.model.*;
 import com.smp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,7 +43,7 @@ public class StateController {
     @RequestMapping("/list")
     public ModelAndView list(HttpServletRequest request, ModelMap model) {
 
-        User user =userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserToOrg> userToOrgs = userToOrgService.findByUserId(user.getUserId());
         List<StateStore> stateStores = new ArrayList<StateStore>();
         if (userToOrgs.size() > 0) {
@@ -63,7 +62,7 @@ public class StateController {
 
     @RequestMapping("/listByOrg")
     public ModelAndView list(HttpServletRequest request, ModelMap model, @RequestParam("choseOrgId") Long choseOrgId) {
-        User user =userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserToOrg> userToOrgs = userToOrgService.findByUserId(user.getUserId());
         List<StateStore> stateStores = new ArrayList<StateStore>();
         if (userToOrgs.size() > 0) {
@@ -96,19 +95,22 @@ public class StateController {
         List<Provider> list = providerService.getAll();
 
         modelAndView.addObject("provs", list);
+        modelAndView.addObject("orgId", orgId);
 
         return modelAndView;
     }
 
     @RequestMapping(value = "/saveStore", method = RequestMethod.POST)
-    public ModelAndView save(@ModelAttribute("stateStore") StateStore stateStore, @RequestParam("newProviderId") Long newProviderId) {
+    public ModelAndView save(@ModelAttribute("stateStore") StateStore stateStore,
+                             @RequestParam("newProviderId") Long newProviderId,
+                             @RequestParam("orgId") Long orgId) {
         if (newProviderId.equals(0L)) {
             stateStore.setProviderId(null);
         } else if (!newProviderId.equals(-1L)) {
             stateStore.setProviderId(newProviderId);
         }
         //TODO
-        stateStore.setOrgId(1L);
+        stateStore.setOrgId(orgId);
         //
         stateStoreService.fullUpdate(stateStore);
 

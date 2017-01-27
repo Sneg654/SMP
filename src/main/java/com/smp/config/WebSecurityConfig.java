@@ -33,8 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         try {
             auth.userDetailsService(userDetailsService);
-            auth.inMemoryAuthentication().withUser("mkyong").password("123456").roles("USER");
-
         } catch (Exception e) {
             System.out.println(e);
         }

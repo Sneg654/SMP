@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface MailService {
      void sendEmail();
-     void messageBodyFrom(List<StateStore> stateStoreList);
+     void messageBodyFrom(String orgName, List<StateStore> stateStoreList);
 }

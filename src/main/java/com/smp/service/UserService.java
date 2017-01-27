@@ -12,6 +12,7 @@ public interface UserService {
 
     List<User> getAll();
     User findById(Long userId);
+    User findByLogin(String login);
     int delete(Long userId);
     int save(User user);
 

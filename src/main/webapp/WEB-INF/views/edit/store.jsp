@@ -97,6 +97,7 @@
                     </tr>
 
                 </table>
+                <input type="hidden" name="orgId" value="${orgId}">
                 <input type="submit" value="Save"/>
             </form:form>
         </td>

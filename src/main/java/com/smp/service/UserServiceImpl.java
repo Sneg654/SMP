@@ -60,7 +60,13 @@ public class UserServiceImpl implements UserService {
                 "SELECT * FROM user where user_id=:userId", params,
                 userMapper).get(0);
     }
-
+    public User findByLogin(String login){
+        Map<String, Object> params = new HashMap<>();
+        params.put("login", login);
+        return namedParameterJdbcTemplate.query(
+                "SELECT * FROM user where login=:login", params,
+                userMapper).get(0);
+    };
 
     @Override
     public int save(User user) {
