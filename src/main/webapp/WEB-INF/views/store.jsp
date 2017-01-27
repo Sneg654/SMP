@@ -32,7 +32,12 @@
     <tr>
 
         <td width="200" valign="top">
-          <a href="/smp/upl/">Загрузка файла</a>
+            <a href="/smp/state/list">Склад</a><br/>
+            <a href="/smp/upl/">Загрузка файла</a><br/>
+            <a href="/smp/users/list">Пользователи</a><br/>
+            <a href="/smp/org/list">Организации</a><br/>
+            <a href="/smp/provider/list">Поставщики</a><br/>
+
         </td>
         <td>
             <table border="1">
@@ -88,5 +93,6 @@
         </td>
     </tr>
 </table>
+<a href="/smp/logout">Выход</a>
 </body>
 </html>

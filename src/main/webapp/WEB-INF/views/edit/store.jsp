@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <html>
@@ -16,69 +16,91 @@
     <title>Title</title>
 </head>
 <body>
-<form:form method="post" action="/smp/state/saveStore">
-    <table>
-        <tr>
-            <td> </td>
-            <td><form:hidden path="send" readonly="true"/></td>
-        </tr>
-        <tr>
-            <td> Номер</td>
-            <td><form:input path="nomeclatureID" readonly="true"/></td>
-        </tr>
-        <tr>
-            <td>Номеклатура</td>
-            <td><form:input path="name" readonly="true"/></td>
-        </tr>
-        <tr>
-            <td> Минимальное количество</td>
-            <td><form:input path="min"/></td>
-        </tr>
-        <tr>
-            <td> Максимальное количество</td>
-            <td><form:input path="max"/></td>
-        </tr>
-        <tr>
-            <td> Кратность</td>
-            <td><form:input path="fold"/></td>
-        </tr>
-        <tr>
-            <td> Цена</td>
-            <td><form:input path="cost"/></td>
-        </tr>
+<table>
+    <tr colspan="2">
+        <font size="8">Система Управления Продуктами (СУП)</font>
+    </tr>
+    <tr>
+        <td><font size="5">Редактирование записи</font></td>
+        <td align="right">
 
-        <tr>
-            <td> Количество</td>
-            <td><form:input path="count"/></td>
-        </tr>
-        <tr>
-            <td> Поставщик</td>
-            <td>
-                <form:input path="provider.name" readonly="true"/>
-            </td>
-        </tr>
-        <tr>
-            <td> Выбрать нового поставщика</td>
-            <td><select id="newProviderId" name="newProviderId">
-                <option value="-1">не менять </option>
-                <option value="0">удалить поставщика</option>
+        </td>
+    </tr>
+    <tr>
+        <td width="200">
+            <a href="/smp/state/list">Склад</a><br/>
+            <a href="/smp/upl/">Загрузка файла</a><br/>
+            <a href="/smp/users/list">Пользователи</a><br/>
+            <a href="/smp/org/list">Организации</a><br/>
+            <a href="/smp/provider/list">Поставщики</a><br/>
+        </td>
+        <td width="600">
+            <form:form method="post" action="/smp/state/saveStore">
+                <table>
+                    <tr>
+                        <td></td>
+                        <td><form:hidden path="send" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <td> Номер</td>
+                        <td><form:input path="nomeclatureID" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <td>Номеклатура</td>
+                        <td><form:input path="name" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <td> Минимальное количество</td>
+                        <td><form:input path="min"/></td>
+                    </tr>
+                    <tr>
+                        <td> Максимальное количество</td>
+                        <td><form:input path="max"/></td>
+                    </tr>
+                    <tr>
+                        <td> Кратность</td>
+                        <td><form:input path="fold"/></td>
+                    </tr>
+                    <tr>
+                        <td> Цена</td>
+                        <td><form:input path="cost"/></td>
+                    </tr>
 
-                <c:forEach items="${provs}" var="prov">
+                    <tr>
+                        <td> Количество</td>
+                        <td><form:input path="count"/></td>
+                    </tr>
+                    <tr>
+                        <td> Поставщик</td>
+                        <td>
+                            <form:input path="provider.name" readonly="true"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Выбрать нового поставщика</td>
+                        <td><select id="newProviderId" name="newProviderId">
+                            <option value="-1">не менять</option>
+                            <option value="0">удалить поставщика</option>
 
-                    <option value="${prov.providerId}">${prov.name}</option>
+                            <c:forEach items="${provs}" var="prov">
 
-                </c:forEach>
-            </select>
-            </td>
-        </tr>
-        <tr>
-            <td> Проверять</td>
+                                <option value="${prov.providerId}">${prov.name}</option>
 
-            <td><form:checkbox path="check"/></td>
-        </tr>
+                            </c:forEach>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Проверять</td>
 
-    </table>
-    <input type="submit" value="Save" />
-</form:form>
+                        <td><form:checkbox path="check"/></td>
+                    </tr>
+
+                </table>
+                <input type="submit" value="Save"/>
+            </form:form>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

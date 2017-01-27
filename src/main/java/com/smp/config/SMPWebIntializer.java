@@ -21,15 +21,15 @@ public class SMPWebIntializer extends AbstractAnnotationConfigDispatcherServletI
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-        registerCharacterEncodingFilter(servletContext);
+//        registerCharacterEncodingFilter(servletContext);
     }
-    private void registerCharacterEncodingFilter(final ServletContext servletContext) {
+  /*  private void registerCharacterEncodingFilter(final ServletContext servletContext) {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
         FilterRegistration.Dynamic filter = servletContext.addFilter("characterEncodingFilter", characterEncodingFilter);
-        filter.addMappingForUrlPatterns(null, true, "/*");
-    }
+        filter.addMappingForUrlPatterns(null, true, "*//*");
+    }*/
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return null;

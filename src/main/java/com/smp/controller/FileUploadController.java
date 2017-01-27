@@ -3,13 +3,12 @@ package com.smp.controller;
 import com.smp.impexsel.ImportFromExsell;
 import com.smp.model.Organization;
 import com.smp.model.StateStore;
+import com.smp.model.User;
 import com.smp.model.UserToOrg;
-import com.smp.service.MailService;
-import com.smp.service.OrgService;
-import com.smp.service.StateStoreService;
-import com.smp.service.UserToOrgService;
+import com.smp.service.*;
 import org.apache.xmlbeans.impl.piccolo.io.FileFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +43,9 @@ public class FileUploadController {
     private StateStoreService stateStoreService;
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private UserService userService;
 
     public File convert(MultipartFile file) throws IOException {
         File convFile = new File(file.getOriginalFilename());
@@ -93,7 +95,8 @@ public class FileUploadController {
                 }
                 //
                 List<StateStore> stateStoreList = stateStoreService.findForSending(orgId);
-                mailService.messageBodyFrom(stateStoreList);
+                Organization org = orgService.findById(orgId);
+                mailService.messageBodyFrom(org.getOrgName(), stateStoreList);
                 mailService.sendEmail();
                 for (StateStore state : stateStoreList) {
                     stateStoreService.sendUpdate(state);
@@ -114,8 +117,8 @@ public class FileUploadController {
 
     @RequestMapping("/upl")
     public ModelAndView list(ModelMap model) {
-
-        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(1L);
+        User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(user.getUserId());
         List<Organization> organizations = new ArrayList<>();
         for (UserToOrg userToOrg : userToOrgs) {
             organizations.add(orgService.findById(userToOrg.getOrgId()));

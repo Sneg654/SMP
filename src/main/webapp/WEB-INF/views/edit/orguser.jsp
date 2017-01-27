@@ -14,6 +14,29 @@
     <title>Пользователи</title>
 </head>
 <body>
+<table>
+    <tr colspan="2">
+        <font size="8">Система Управления Продуктами (СУП)</font>
+    </tr>
+    <tr>
+        <td width="200"><font size="5">Редактирование Пользователя</font></td>
+        <td>
+
+
+        </td>
+    </tr>
+    <tr>
+
+        <td width="200" valign="top">
+            <a href="/smp/state/list">Склад</a><br/>
+            <a href="/smp/upl/">Загрузка файла</a><br/>
+            <a href="/smp/users/list">Пользователи</a><br/>
+            <a href="/smp/org/list">Организации</a><br/>
+            <a href="/smp/provider/list">Поставщики</a><br/>
+
+
+        </td>
+        <td>
 <form:form method="post" action="/smp/users/saveList" modelAttribute="users" acceptCharset="UTF-8">
  <table border="1">
  <tr>
@@ -40,5 +63,8 @@
     <input type="hidden" name="orgId"  value="${orgId}">
     <input type="submit" value="Сохранить">
  </form:form>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

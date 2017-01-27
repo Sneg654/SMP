@@ -4,6 +4,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <h2>provider</h2>
+<table>
+    <tr colspan="2">
+        <font size="8">Система Управления Продуктами (СУП)</font>
+    </tr>
+    <tr>
+        <td><font size="5">Пользователи</font></td>
+        <td>
+
+
+        </td>
+    </tr>
+    <tr>
+
+        <td width="200" valign="top">
+            <a href="/smp/state/list">Склад</a><br/>
+            <a href="/smp/upl/">Загрузка файла</a><br/>
+            <a href="/smp/users/list">Пользователи</a><br/>
+            <a href="/smp/org/list">Организации</a><br/>
+            <a href="/smp/provider/list">Поставщики</a><br/>
+
+
+        </td>
+        <td>
 <table border="1">
     <tr>
         <th>Id</th>
@@ -45,4 +68,8 @@
 
     <input type="submit" name="change" value="Добавить нового поставщика"/>
 </form:form>
-<a href="/smp">Welcome page</a>
+
+        </td>
+    </tr>
+</table>
+

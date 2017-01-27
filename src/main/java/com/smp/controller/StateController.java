@@ -1,14 +1,10 @@
 package com.smp.controller;
 
-import com.smp.model.Organization;
-import com.smp.model.Provider;
-import com.smp.model.StateStore;
-import com.smp.model.UserToOrg;
-import com.smp.service.OrgService;
-import com.smp.service.ProviderService;
-import com.smp.service.StateStoreService;
-import com.smp.service.UserToOrgService;
+import com.smp.model.*;
+import com.smp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,9 +38,14 @@ public class StateController {
     @Autowired
     private OrgService orgService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/list")
-    public ModelAndView list(ModelMap model) {
-        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(1L);
+    public ModelAndView list(HttpServletRequest request, ModelMap model) {
+
+        User user =userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(user.getUserId());
         List<StateStore> stateStores = new ArrayList<StateStore>();
         if (userToOrgs.size() > 0) {
             stateStores = stateStoreService.findByOrgId(userToOrgs.get(0).getOrgId());
@@ -60,8 +62,9 @@ public class StateController {
 
 
     @RequestMapping("/listByOrg")
-    public ModelAndView list(ModelMap model, @RequestParam("choseOrgId") Long choseOrgId) {
-        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(1L);
+    public ModelAndView list(HttpServletRequest request, ModelMap model, @RequestParam("choseOrgId") Long choseOrgId) {
+        User user =userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<UserToOrg> userToOrgs = userToOrgService.findByUserId(user.getUserId());
         List<StateStore> stateStores = new ArrayList<StateStore>();
         if (userToOrgs.size() > 0) {
             stateStores = stateStoreService.findByOrgId(choseOrgId);
@@ -84,7 +87,6 @@ public class StateController {
                                ModelMap model) {
 
         StateStore stateStore = stateStoreService.findById(new StateStore(orgId, id)).get(0);
-//         stateStore = stateStoreService.findById(new StateStore(1L, "S")).get(0);
         if (!stateStore.getProviderId().equals(0L)) {
             stateStore.setProvider(providerService.findById(stateStore.getProviderId()));
         } else {
@@ -105,7 +107,7 @@ public class StateController {
         } else if (!newProviderId.equals(-1L)) {
             stateStore.setProviderId(newProviderId);
         }
-        //
+        //TODO
         stateStore.setOrgId(1L);
         //
         stateStoreService.fullUpdate(stateStore);
