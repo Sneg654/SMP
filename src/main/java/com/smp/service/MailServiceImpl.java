@@ -54,7 +54,8 @@ public class MailServiceImpl implements MailService {
                 .append(TD).append("Количество").append(TD_F)
                 .append(TD).append("Цена").append(TD_F)
                 .append(TD).append("Необходимо заказать").append(TD_F)
-                .append(TD).append("Поставщик").append(TD_F).append(TR_F);
+                .append(TD).append("Поставщик").append(TD_F)
+                .append(TD).append("Телефон поставщика").append(TD_F).append(TR_F);
 
 
         for (StateStore store : stateStoreList) {
@@ -63,8 +64,15 @@ public class MailServiceImpl implements MailService {
                     .append(TD).append(store.getNomeclatureID()).append(TD_F)
                     .append(TD).append(store.getCount()).append(TD_F)
                     .append(TD).append(store.getCost()).append(TD_F)
-                    .append(TD).append(((int) (store.getMax() - store.getCount())) / store.getFold()).append(TD_F)
-                    .append(TD).append(store.getProviderId()).append(TD_F).append(TR_F);
+                    .append(TD).append(((int) (store.getMax() - store.getCount())) / store.getFold()).append(TD_F);
+            if (store.getProvider() != null) {
+                stringBuilder.append(TD).append(store.getProvider().getName()).append(TD_F);
+                stringBuilder.append(TD).append(store.getProvider().getPhone()).append(TD_F).append(TR_F);
+            } else {
+                stringBuilder.append(TD).append(TD_F);
+                stringBuilder.append(TD).append(TD_F).append(TR_F);
+            }
+
         }
 
         stringBuilder.append("</table>");

@@ -42,18 +42,24 @@ public class StateController {
 
     @RequestMapping("/list")
     public ModelAndView list(HttpServletRequest request, ModelMap model) {
-
+        Map<String, Object> params = new HashMap<>();
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserToOrg> userToOrgs = userToOrgService.findByUserId(user.getUserId());
         List<StateStore> stateStores = new ArrayList<StateStore>();
         if (userToOrgs.size() > 0) {
             stateStores = stateStoreService.findByOrgId(userToOrgs.get(0).getOrgId());
+            for (StateStore stateStore : stateStores) {
+                if (stateStore.getProviderId() != null && !stateStore.getProviderId().equals(0L)) {
+                    stateStore.setProvider(providerService.findById(stateStore.getProviderId()));
+                }
+            }
+            params.put("orgName", orgService.findById(userToOrgs.get(0).getOrgId()).getOrgName());
         }
         List<Organization> organizations = new ArrayList<>();
         for (UserToOrg userToOrg : userToOrgs) {
             organizations.add(orgService.findById(userToOrg.getOrgId()));
         }
-        Map<String, Object> params = new HashMap<>();
+
         params.put("orgs", organizations);
         params.put("stateStores", stateStores);
         return new ModelAndView("store", params);
@@ -62,17 +68,25 @@ public class StateController {
 
     @RequestMapping("/listByOrg")
     public ModelAndView list(HttpServletRequest request, ModelMap model, @RequestParam("choseOrgId") Long choseOrgId) {
+        Map<String, Object> params = new HashMap<>();
         User user = userService.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
         List<UserToOrg> userToOrgs = userToOrgService.findByUserId(user.getUserId());
         List<StateStore> stateStores = new ArrayList<StateStore>();
         if (userToOrgs.size() > 0) {
             stateStores = stateStoreService.findByOrgId(choseOrgId);
+            for (StateStore stateStore : stateStores) {
+                if (stateStore.getProviderId() != null && !stateStore.getProviderId().equals(0L)) {
+                    stateStore.setProvider(providerService.findById(stateStore.getProviderId()));
+                }
+            }
+
+            params.put("orgName", orgService.findById(choseOrgId).getOrgName());
         }
         List<Organization> organizations = new ArrayList<>();
         for (UserToOrg userToOrg : userToOrgs) {
             organizations.add(orgService.findById(userToOrg.getOrgId()));
         }
-        Map<String, Object> params = new HashMap<>();
+
         params.put("orgs", organizations);
         params.put("stateStores", stateStores);
         return new ModelAndView("store", params);
@@ -114,6 +128,7 @@ public class StateController {
         //
         stateStoreService.fullUpdate(stateStore);
 
+//        return new ModelAndView("redirect:/state/list");//will redirect to viewemp request mapping
         return new ModelAndView("redirect:/state/list");//will redirect to viewemp request mapping
     }
 

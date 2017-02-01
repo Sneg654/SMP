@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 
 <html>
 <head>
@@ -17,7 +17,6 @@
 <body>
 
 
-<h1>Add New Employee</h1>
 <table>
     <tr colspan="2">
         <font size="8">Система Управления Продуктами (СУП)</font>
@@ -31,49 +30,45 @@
     </tr>
     <tr>
 
-        <td width="200">
-            <a href="/smp/state/list">Склад</a><br/>
-            <a href="/smp/upl/">Загрузка файла</a><br/>
-            <a href="/smp/users/list">Пользователи</a><br/>
-            <a href="/smp/org/list">Организации</a><br/>
-            <a href="/smp/provider/list">Поставщики</a><br/>
+        <td width="200" valign="top">
+            <jsp:include page="../left_menu.jsp"/>
 
 
         </td>
         <td>
-<form:form method="post" action="save">
-    <table >
-        <tr>
-            <td>Name : </td>
-            <td><form:input path="name"  />
-                <form:hidden path="userId"  /></td>
-        </tr>
-        <tr>
-            <td>Login :</td>
-            <td><form:input path="login" /></td>
-        </tr>
-        <tr>
-            <td>Password :</td>
-            <td><form:input path="password" /></td>
-        </tr>
-        <tr>
-            <td>Email :</td>
-            <td><form:input path="email" /></td>
-        </tr>
-        <tr>
-            <td>Phone :</td>
-            <td><form:input path="phone" /></td>
-        </tr>
-        <tr>
-            <td>Role :</td>
-            <td><form:input path="role" /></td>
-        </tr>
-        <tr>
-            <td> </td>
-            <td><input type="submit" value="Save" /></td>
-        </tr>
-    </table>
-</form:form>
+            <form:form method="post" action="save">
+                <table>
+                    <tr>
+                        <td>ФИО :</td>
+                        <td><form:input path="name"/>
+                            <form:hidden path="userId"/></td>
+                    </tr>
+                    <tr>
+                        <td>Логин(должен быть уникальным) :</td>
+                        <td><form:input path="login"/></td>
+                    </tr>
+                    <tr>
+                        <td>Пароль :</td>
+                        <td><form:password path="password"/></td>
+                    </tr>
+                    <tr>
+                        <td>Email :</td>
+                        <td><form:input path="email"/></td>
+                    </tr>
+                    <tr>
+                        <td>Телефон :</td>
+                        <td><form:input path="phone"/></td>
+                    </tr>
+                    <tr>
+                        <td>Роль(1-админ,0-кладовщик) :</td>
+                        <td><form:input path="role"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Сохранить"/></td>
+                    </tr>
+                </table>
+            </form:form>
         </td>
     </tr>
 </table>

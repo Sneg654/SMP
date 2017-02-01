@@ -18,20 +18,14 @@
     <tr>
 
         <td width="200" valign="top">
-            <a href="/smp/state/list">Склад</a><br/>
-            <a href="/smp/upl/">Загрузка файла</a><br/>
-            <a href="/smp/users/list">Пользователи</a><br/>
-            <a href="/smp/org/list">Организации</a><br/>
-            <a href="/smp/provider/list">Поставщики</a><br/>
-
-
+            <jsp:include page="left_menu.jsp"/>
         </td>
         <td>
             <table border="1">
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Login</th>
+                    <%--<th>Id</th>--%>
+                    <th>ФИО</th>
+                    <th>Логин</th>
                     <th>Редактировать</th>
                     <th>Удалить</th>
 
@@ -41,10 +35,13 @@
                 <c:forEach var="usr" items="${users}">
                     <form:form method="post" action="/smp/users/usercorrect" acceptCharset="UTF-8">
                         <tr>
+                        <%--<td>--%>
+
+                                <%--${usr.userId}--%>
+                        <%--</td>--%>
                         <td>
                             <input type="hidden" name="userId" value="${usr.userId}">
-                                ${usr.userId}</td>
-                        <td>${usr.name}</td>
+                        ${usr.name}</td>
                         <td>${usr.login}</td>
                         <td><input type="submit" name="change" value="Редактировать"/></td>
                     </form:form>
@@ -59,7 +56,11 @@
 
                     <%--#end--%>
                 </c:forEach>
+
             </table>
+            <br/>
+            <br/>
+            <br/>
             <form:form method="post" action="/smp/users/userform" acceptCharset="UTF-8">
 
                 <input type="submit" name="change" value="Добавить пользователя"/>

@@ -8,7 +8,7 @@
         <font size="8">Система Управления Продуктами (СУП)</font>
     </tr>
     <tr>
-        <td><font size="5">Пользователи</font></td>
+        <td><font size="5">Организации </font></td>
         <td>
 
 
@@ -17,25 +17,19 @@
     <tr>
 
         <td width="200" valign="top">
-            <a href="/smp/state/list">Склад</a><br/>
-            <a href="/smp/upl/">Загрузка файла</a><br/>
-            <a href="/smp/users/list">Пользователи</a><br/>
-            <a href="/smp/org/list">Организации</a><br/>
-            <a href="/smp/provider/list">Поставщики</a><br/>
-
-
+            <jsp:include page="left_menu.jsp"/>
         </td>
         <td>
 <table border="1">
     <tr>
-        <th>Id</th>
-        <th>Name</th>
+        <%--<th>Id</th>--%>
+        <th>Наименование учереждения</th>
         <th>Удалить</th>
         <th>Редактировать пользователей</th>
     </tr>
     <c:forEach var="org" items="${orgs}">
         <tr>
-            <td>${org.orgId}</td>
+            <%--<td>${org.orgId}</td>--%>
             <td>${org.orgName}</td>
             <td>
                 <form:form method="post" action="/smp/org/delete" acceptCharset="UTF-8">

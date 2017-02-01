@@ -29,15 +29,12 @@
     <tr>
 
         <td width="200" valign="top">
-            <a href="/smp/state/list">Склад</a><br/>
-            <a href="/smp/upl/">Загрузка файла</a><br/>
-            <a href="/smp/users/list">Пользователи</a><br/>
-            <a href="/smp/org/list">Организации</a><br/>
-            <a href="/smp/provider/list">Поставщики</a><br/>
+            <jsp:include page="../left_menu.jsp"/>
+
 
 
         </td>
-        <td>
+        <td  valign="top">
 <form:form method="post" action="/smp/provider/save">
     <table>
           <tr>
@@ -53,11 +50,11 @@
         </tr>
         <tr>
             <td> Описание</td>
-            <td><form:input path="description"/></td>
+            <td><form:textarea path="description"/></td>
         </tr>
 
     </table>
-    <input type="submit" value="Save" />
+    <input type="submit" value="Сохранить" />
 </form:form>
         </td>
     </tr>

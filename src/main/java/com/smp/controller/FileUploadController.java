@@ -43,7 +43,8 @@ public class FileUploadController {
     private StateStoreService stateStoreService;
     @Autowired
     private MailService mailService;
-
+    @Autowired
+    private ProviderService providerService;
     @Autowired
     private UserService userService;
 
@@ -95,6 +96,12 @@ public class FileUploadController {
                 }
                 //
                 List<StateStore> stateStoreList = stateStoreService.findForSending(orgId);
+                for(StateStore stateStore:stateStoreList){
+                    if(!stateStore.getProviderId().equals(0L)){
+                        stateStore.setProvider(providerService.findById(stateStore.getProviderId()));
+                    }
+                }
+
                 Organization org = orgService.findById(orgId);
                 mailService.messageBodyFrom(org.getOrgName(), stateStoreList);
                 mailService.sendEmail();

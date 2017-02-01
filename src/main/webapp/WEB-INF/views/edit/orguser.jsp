@@ -28,11 +28,7 @@
     <tr>
 
         <td width="200" valign="top">
-            <a href="/smp/state/list">Склад</a><br/>
-            <a href="/smp/upl/">Загрузка файла</a><br/>
-            <a href="/smp/users/list">Пользователи</a><br/>
-            <a href="/smp/org/list">Организации</a><br/>
-            <a href="/smp/provider/list">Поставщики</a><br/>
+            <jsp:include page="../left_menu.jsp"/>
 
 
         </td>

@@ -3,13 +3,13 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<h2>provider</h2>
+
 <table>
     <tr colspan="2">
         <font size="8">Система Управления Продуктами (СУП)</font>
     </tr>
     <tr>
-        <td><font size="5">Пользователи</font></td>
+        <td><font size="5">Поставщики</font></td>
         <td>
 
 
@@ -18,27 +18,22 @@
     <tr>
 
         <td width="200" valign="top">
-            <a href="/smp/state/list">Склад</a><br/>
-            <a href="/smp/upl/">Загрузка файла</a><br/>
-            <a href="/smp/users/list">Пользователи</a><br/>
-            <a href="/smp/org/list">Организации</a><br/>
-            <a href="/smp/provider/list">Поставщики</a><br/>
-
+            <jsp:include page="left_menu.jsp"/>
 
         </td>
         <td>
 <table border="1">
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>phone</th>
-        <th>description</th>
+        <%--<th>Id</th>--%>
+        <th>Наименование</th>
+        <th>телефон</th>
+        <th>описание</th>
         <th>Редактировать</th>
         <th>Удалить</th>
     </tr>
     <c:forEach var="provider" items="${providers}">
         <tr>
-            <td>${provider.providerId}</td>
+            <%--<td>${provider.providerId}</td>--%>
             <td>${provider.name}</td>
             <td>${provider.phone}</td>
             <td>${provider.description}</td>
@@ -63,7 +58,9 @@
     </c:forEach>
 </table>
 
-
+<br/>
+<br/>
+<br/>
 <form:form method="post" action="/smp/provider/provform" acceptCharset="UTF-8">
 
     <input type="submit" name="change" value="Добавить нового поставщика"/>
