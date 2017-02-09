@@ -60,12 +60,9 @@ public class MailServiceImpl implements MailService {
         Double commmonCount = 0d;
         for (StateStore store : stateStoreList) {
             int needCount = (int) (store.getMax() - store.getCount());
-            System.out.println("needCount "+needCount);
-            int kol=needCount/store.getFold();
-            System.out.println("kol "+kol);
-            int count =  (kol*store.getFold());
-            System.out.println("count" +count);
-            stringBuilder.append(TR)
+                int kol=needCount/store.getFold();
+                int count =  (kol*store.getFold());
+                 stringBuilder.append(TR)
                     .append(TD).append(store.getName()).append(TD_F)
                     .append(TD).append(store.getNomeclatureID()).append(TD_F)
                     .append(TD).append(store.getCount()).append(TD_F)
