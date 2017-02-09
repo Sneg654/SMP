@@ -24,7 +24,7 @@ public class StateStoreMapper implements RowMapper<StateStore> {
         stateStore.setMin(rs.getInt("min"));
         stateStore.setMax(rs.getInt("max"));
         stateStore.setFold(rs.getInt("fold"));
-        stateStore.setCost(rs.getDouble("fold"));
+        stateStore.setCost(rs.getDouble("cost"));
         stateStore.setProviderId(rs.getLong("provider_id"));
         stateStore.setCheck(rs.getBoolean("is_check"));
         stateStore.setSend(rs.getBoolean("is_send"));

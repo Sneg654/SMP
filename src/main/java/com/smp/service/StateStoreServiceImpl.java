@@ -70,7 +70,7 @@ public class StateStoreServiceImpl implements StateStoreService {
     @Override
     public int insertStore(StateStore stateStore) {
         String sql = "INSERT INTO state_store (NOMECLATURE_ID, ORG_ID, NAME, MIN, MAX, FOLD, COST, COUNT, provider_id, IS_CHECK, IS_SEND) VALUES " +
-                " (:nomeclatureId, :orgId,:name,:min,:max,1,:cost,:count,null,0,0)";
+                " (:nomeclatureId, :orgId,:name,:min,:max,:fold,:cost,:count,null,0,0)";
 
         Map<String, Object> params = new HashMap<>();
         params.put("nomeclatureId", stateStore.getNomeclatureID());
@@ -78,6 +78,7 @@ public class StateStoreServiceImpl implements StateStoreService {
         params.put("name", stateStore.getName());
         params.put("min", stateStore.getCount().intValue());
         params.put("max", stateStore.getCount().intValue());
+        params.put("fold", 1);
         params.put("cost", stateStore.getCost());
         params.put("count", stateStore.getCount());
         try {

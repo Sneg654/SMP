@@ -5,6 +5,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -24,8 +25,8 @@ public class ImportFromExsell {
     DataFormat format;
     private final int IND_NUM_ID=3;
     private final int IND_NAME=2;
-    private final int IND_COUNT=11;
-    private final int IND_COST=13;
+    private final int IND_COUNT=21;
+    private final int IND_COST=20;
     private final int COUNT_COLUMN=23;
 
     public ImportFromExsell(FileInputStream fileInputStream, Long orgId) {
@@ -111,7 +112,7 @@ public class ImportFromExsell {
         stateStore.setName(name);
         stateStore.setOrgId(orgId);
         stateStore.setCost(cost);
-        stateStore.setCount(count);
+        stateStore.setCount(Math.ceil(count));
         System.out.println(stateStore);
         return stateStore;
     }
