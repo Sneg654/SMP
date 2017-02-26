@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.RequestWrapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,10 +118,17 @@ public class StateController {
     @RequestMapping(value = "/saveStore", method = RequestMethod.POST)
     public ModelAndView save(@ModelAttribute("stateStore") StateStore stateStore,
                              @RequestParam("newProviderId") Long newProviderId,
-                             @RequestParam("orgId") Long orgId) {
+                             @RequestParam("orgId") Long orgId,
+                             @RequestParam("oldProvId") Long oldProvId) {
+        System.out.println(oldProvId);
+        System.out.println(oldProvId);
+        System.out.println(oldProvId);
         if (newProviderId.equals(0L)) {
             stateStore.setProviderId(null);
-        } else if (!newProviderId.equals(-1L)) {
+        }else if(!newProviderId.equals(1L)){
+            stateStore.setProviderId(oldProvId);
+        }
+        else if (!newProviderId.equals(-1L)) {
             stateStore.setProviderId(newProviderId);
         }
         //TODO

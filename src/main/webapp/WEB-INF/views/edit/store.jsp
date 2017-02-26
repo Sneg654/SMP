@@ -71,6 +71,8 @@
                         <td> Поставщик</td>
                         <td>
                             <form:input path="provider.name" readonly="true"/>
+
+
                         </td>
                     </tr>
                     <tr>
@@ -95,6 +97,7 @@
 
                 </table>
                 <input type="hidden" name="orgId" value="${orgId}">
+                  <input type="hidden" name="oldProvId" id="oldProvId" value="${provider.providerId}">
                 <input type="submit" value="Save"/>
             </form:form>
         </td>
